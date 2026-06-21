@@ -1,0 +1,147 @@
+\documentclass[12pt, a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[brazil]{babel}
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{amsmath}
+\usepackage{tikz}
+\usetikzlibrary{shapes.geometric, arrows, positioning, fit, backgrounds}
+
+\geometry{a4paper, margin=2.5cm}
+
+\title{Desenho do Experimento — GraphQL vs REST}
+\author{}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\section{Contexto}
+
+A linguagem de consulta GraphQL, proposta pelo Facebook, representa uma alternativa às APIs REST tradicionais. Enquanto REST utiliza múltiplos endpoints para diferentes operações, GraphQL permite ao cliente especificar exatamente os dados desejados em uma única requisição. Este experimento investiga quantitativamente as diferenças de desempenho entre ambas as abordagens, utilizando a API do GitHub como objeto de estudo.
+
+\section{Perguntas de Pesquisa}
+
+\begin{itemize}
+    \item \textbf{RQ1}: Respostas às consultas GraphQL são mais rápidas que respostas às consultas REST?
+    \item \textbf{RQ2}: Respostas às consultas GraphQL têm tamanho menor que respostas às consultas REST?
+\end{itemize}
+
+\section{Hipóteses Nula e Alternativa}
+
+\subsection{RQ1 — Tempo de Resposta}
+\begin{itemize}
+    \item \textbf{H$_{01}$:} Não há diferença significativa no tempo de resposta entre consultas GraphQL e consultas REST equivalentes.\\
+    ($H_{01}: \mu_{\text{tempo\_GraphQL}} = \mu_{\text{tempo\_REST}}$)
+    \item \textbf{H$_{11}$:} Há diferença significativa no tempo de resposta entre consultas GraphQL e consultas REST equivalentes.\\
+    ($H_{11}: \mu_{\text{tempo\_GraphQL}} \neq \mu_{\text{tempo\_REST}}$)
+\end{itemize}
+
+\subsection{RQ2 — Tamanho da Resposta}
+\begin{itemize}
+    \item \textbf{H$_{02}$:} Não há diferença significativa no tamanho da resposta entre consultas GraphQL e consultas REST equivalentes.\\
+    ($H_{02}: \mu_{\text{tamanho\_GraphQL}} = \mu_{\text{tamanho\_REST}}$)
+    \item \textbf{H$_{12}$:} Há diferença significativa no tamanho da resposta entre consultas GraphQL e consultas REST equivalentes.\\
+    ($H_{12}: \mu_{\text{tamanho\_GraphQL}} \neq \mu_{\text{tamanho\_REST}}$)
+\end{itemize}
+
+\section{Variáveis}
+
+\subsection{Dependentes}
+\begin{itemize}
+    \item \textbf{Tempo de resposta (ms)}: Tempo total desde o envio da requisição HTTP até o recebimento completo do corpo da resposta.
+    \item \textbf{Tamanho da resposta (Bytes)}: Tamanho total do corpo da resposta HTTP.
+\end{itemize}
+
+\subsection{Independentes}
+\begin{itemize}
+    \item \textbf{Tipo de API}: GraphQL, REST.
+    \item \textbf{Complexidade da consulta}: Simples, Média, Complexa.
+\end{itemize}
+
+\section{Tratamentos}
+
+O experimento define \textbf{2 tratamentos} (GraphQL e REST) aplicados a \textbf{3 níveis de complexidade} de consulta:
+
+\begin{table}[h]
+\centering
+\begin{tabularx}{\textwidth}{l X X}
+\toprule
+\textbf{Nível} & \textbf{GraphQL} & \textbf{REST} \\
+\midrule
+\textbf{Simples} & Query básica do repositório (nome, estrelas, forks, linguagem, etc.) & \texttt{GET /repos/\{owner\}/\{repo\}} \\
+\textbf{Médio} & Repositório + lista de 20 issues com detalhes & \texttt{GET /repos/...} e \texttt{GET .../issues} \\
+\textbf{Complexo} & Repositório + 10 PRs com reviews e comentários & \texttt{GET .../pulls}, \texttt{GET .../reviews}, etc. \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\section{Objetos Experimentais}
+
+Os objetos experimentais são os \textbf{300 repositórios mais populares do GitHub} (ordenados por número de estrelas, com pelo menos 10.000 estrelas). Estes repositórios foram escolhidos por sua representatividade, diversidade, volume rico de dados (PRs e Issues), e para permitir a reprodutibilidade do estudo.
+
+\section{Projeto Experimental}
+
+O projeto experimental utiliza um \textbf{design pareado (paired design)}, onde cada repositório é testado com ambos os tratamentos (GraphQL e REST) para cada nível de complexidade de consulta.
+
+Para mitigar efeitos de variabilidade de rede e caching, cada medição é repetida múltiplas vezes (trials).
+
+\section{Quantidade de Medições}
+
+\begin{itemize}
+    \item Repositórios (objetos): 300
+    \item Tipos de consulta (complexidade): 3
+    \item Tratamentos (APIs): 2 (GraphQL, REST)
+    \item Trials por medição: 5
+    \item \textbf{Total de medições:} $300 \times 3 \times 2 \times 5 = 9.000$
+\end{itemize}
+
+\section{Procedimento Experimental (Metodologia)}
+
+O procedimento de coleta de dados pode ser visualizado no diagrama abaixo.
+
+\begin{figure}[h]
+\centering
+\begin{tikzpicture}[
+    node distance=1.5cm and 2cm,
+    startstop/.style={rectangle, rounded corners, minimum width=3cm, minimum height=1cm, text centered, draw=black, fill=red!30},
+    process/.style={rectangle, minimum width=3cm, minimum height=1cm, text centered, draw=black, fill=orange!30},
+    decision/.style={diamond, minimum width=3cm, minimum height=1cm, text centered, draw=black, fill=green!30},
+    arrow/.style={thick,->,>=stealth}
+]
+
+% Nodes
+\node (start) [startstop] {Início};
+\node (pro1) [process, below of=start] {1. Obter 300 repositórios top};
+\node (dec1) [decision, below of=pro1, yshift=-1cm] {Há repositório?};
+\node (pro2) [process, right=2cm of dec1] {2. Executar Warm-up};
+\node (dec2) [decision, below of=pro2, yshift=-1cm] {Há complexidade?};
+\node (dec3) [decision, right=2cm of dec2] {Trial $< 5$?};
+\node (pro3) [process, above of=dec3, yshift=1cm] {Medir GraphQL};
+\node (pro4) [process, right=1.5cm of pro3] {Medir REST};
+\node (end) [startstop, left=2.5cm of dec1] {Salvar CSV e Fim};
+
+% Arrows
+\draw [arrow] (start) -- (pro1);
+\draw [arrow] (pro1) -- (dec1);
+\draw [arrow] (dec1) -- node[anchor=south] {Sim} (pro2);
+\draw [arrow] (dec1) -- node[anchor=south] {Não} (end);
+\draw [arrow] (pro2) -- (dec2);
+\draw [arrow] (dec2) -- node[anchor=east] {Não} (dec1);
+\draw [arrow] (dec2) -- node[anchor=south] {Sim (Simples, Médio, Complexo)} (dec3);
+\draw [arrow] (dec3) -- node[anchor=east] {Sim} (pro3);
+\draw [arrow] (pro3) -- (pro4);
+\draw [arrow] (pro4) |- (dec3);
+\draw [arrow] (dec3) -- node[anchor=north] {Não} (dec2);
+
+\end{tikzpicture}
+\caption{Fluxo de Execução do Procedimento Experimental}
+\end{figure}
+
+\end{document}
