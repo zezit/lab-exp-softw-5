@@ -1,0 +1,5 @@
+query_type,metric,n_graphql,n_rest,median_graphql,median_rest,u_statistic,p_value,rank_biserial_r,significant,note,rq
+simple,response_size_bytes,1500,1500,472.5,6336.5,7475.0,0.0,0.9933555555555555,True,,RQ2
+medium,response_size_bytes,1500,1500,4940.5,99163.0,3300.0,0.0,0.9970666666666667,True,,RQ2
+complex,response_size_bytes,1499,1482,6931.0,193286.0,18790.0,0.0,0.9830836392052642,True,,RQ2
+all,response_size_bytes,4499,4482,4450.0,98938.0,1572490.0,0.0,0.844033961039882,True,,RQ2

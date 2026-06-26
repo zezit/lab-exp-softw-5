@@ -1,0 +1,5 @@
+query_type,metric,n_graphql,n_rest,median_graphql,median_rest,u_statistic,p_value,rank_biserial_r,significant,note,rq
+simple,response_time_ms,1500,1500,676.3675000000001,461.661,2188177.0,0.0,-0.9450462222222222,True,,RQ1
+medium,response_time_ms,1500,1500,645.9225,1211.1975,13039.0,0.0,0.9884097777777778,True,,RQ1
+complex,response_time_ms,1499,1482,1013.85,9515.266,2.0,0.0,0.9999981994293992,True,,RQ1
+all,response_time_ms,4499,4482,731.276,1210.7669999999998,7333643.5,7.213130073814507e-111,0.2726190132588342,True,,RQ1

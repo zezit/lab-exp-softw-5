@@ -1,0 +1,7 @@
+query_type,api_type,metric,shapiro_stat,shapiro_p,is_normal,n
+simple,graphql,response_size_bytes,0.06409612118326635,5.161326472709983e-65,False,1500
+simple,rest,response_size_bytes,0.5523740275525904,5.0928249468000714e-52,False,1500
+medium,graphql,response_size_bytes,0.7359248175985241,1.2303153766158026e-43,False,1500
+medium,rest,response_size_bytes,0.7944020795828987,6.306729966646294e-40,False,1500
+complex,graphql,response_size_bytes,0.35576665460139245,3.1049661643410594e-58,False,1499
+complex,rest,response_size_bytes,0.7596039739749902,5.0510657810608714e-42,False,1482

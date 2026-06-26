@@ -1,0 +1,7 @@
+query_type,api_type,metric,shapiro_stat,shapiro_p,is_normal,n
+simple,graphql,response_time_ms,0.6241924243084804,3.710689474141057e-49,False,1500
+simple,rest,response_time_ms,0.6143583065743036,1.4187625246904253e-49,False,1500
+medium,graphql,response_time_ms,0.4648749030675271,4.990259229362984e-55,False,1500
+medium,rest,response_time_ms,0.40180586135631036,5.974391712616197e-57,False,1500
+complex,graphql,response_time_ms,0.42392468428208596,2.775146728801868e-56,False,1499
+complex,rest,response_time_ms,0.7732914481311088,3.7148991629882967e-41,False,1482
