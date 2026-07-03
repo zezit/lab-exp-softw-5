@@ -2,7 +2,7 @@
 
 ## 🔗 Links Rápidos e Documentos Principais
 
-- **[Planejamento do Experimento (LaTeX)](./docs/desenho-experimento.tex)**
+- **[Planejamento do Experimento (PDF)](./docs/desenho-experimento.pdf)**
 - **[Relatório Final de Resultados (PDF)](./reports/relatorio.pdf)**
 - **[Dashboard Interativo (GitHub Pages)](https://jvictormmendesd.github.io/lab-5/)** *(Verifique se o Actions de deploy finalizou no seu fork!)*
 
@@ -10,7 +10,7 @@
 
 **Disciplina:** Laboratório de Experimentação de Software  
 **Curso:** Engenharia de Software  
-**Professor:** João Paulo Carneiro Aramuni  
+**Professor:** Danilo  
 **Valor:** 20 pontos
 
 ---
@@ -262,6 +262,3 @@ pip install -r requirements.txt
 - [GitHub REST API v3](https://docs.github.com/en/rest)
 - [GitHub GraphQL API v4](https://docs.github.com/en/graphql)
 - [GraphQL Specification](https://spec.graphql.org/)
-- [Laboratório 01](../lab-1/README.md)
-- [Laboratório 02](../lab-2/README.md)
-- [Laboratório 03](../lab-3/README.md)
