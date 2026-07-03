@@ -41,7 +41,7 @@ export default function Dashboard() {
   useEffect(() => {
     async function loadData() {
       try {
-        const response = await fetch("/results_experiment.csv");
+        const response = await fetch("results_experiment.csv");
         const csvText = await response.text();
         Papa.parse(csvText, {
           header: true,
