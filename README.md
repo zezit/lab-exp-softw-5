@@ -4,7 +4,7 @@
 
 - **[Planejamento do Experimento (PDF)](./docs/desenho-experimento.pdf)**
 - **[Relatório Final de Resultados (PDF)](./reports/relatorio.pdf)**
-- **[Dashboard Interativo (GitHub Pages)](https://jvictormmendesd.github.io/lab-5/)** *(Verifique se o Actions de deploy finalizou no seu fork!)*
+- **[Dashboard Interativo (GitHub Pages)](https://zezit.github.io/lab-exp-softw-5/)** *(Verifique se o Actions de deploy finalizou no seu fork!)*
 
 ## 1. Visão Geral
 
